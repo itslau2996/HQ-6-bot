@@ -113,7 +113,6 @@ module.exports = {
         let choice = interaction.options.getString('gear')
         let daypart = interaction.options.getString('dagdeel')
         let project = interaction.options.getString('project')
-        console.log(`choice = ${choice}\ndaypart: ${daypart}\nproject: ${project}`)
         let id = interaction.user.id
         let week = dayjs(new Date()).week()
         async function status(choice, daypart, db) {
