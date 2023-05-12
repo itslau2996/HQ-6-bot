@@ -1,0 +1,25 @@
+{
+  "name": "sqlbasediscord",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "node": "node ./syncs/discordsync.js  && nodemon index.js",
+    "sync": "node ./syncs/discordsync.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cron": "^2.3.0",
+    "dayjs": "^1.11.7",
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "moment": "^2.29.4",
+    "node-cron": "^3.0.2",
+    "nodemon": "^2.0.20",
+    "shelljs": "^0.8.5",
+    "sqlite3": "^5.1.4"
+  }
+}
