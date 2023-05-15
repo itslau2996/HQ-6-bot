@@ -14,7 +14,6 @@ module.exports = {
         console.log(`Ready! Logged in as ${client.user.tag}`);
         let newweekwipe = new cron.CronJob('0 1 * * 6', () => {
             db.run('DELETE FROM reservaties')
-            console.log('Wiped yo table')
             client.users.send('642288908381585408', `Tables wiped.`)
         })
         newweekwipe.start()
