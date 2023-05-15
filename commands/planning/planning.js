@@ -66,12 +66,12 @@ module.exports = {
             .setTitle('Beschikbaarheid')
             .setDescription('Hieronder vind je alle computers en gear die er beschikbaar zijn!')
             .addFields(
-                { name: 'Apple 1', value: `dagdeel 1: ${g1d1}\ndagdeel 2: ${g1d2}`, inline: true },
-                { name: 'Apple 2', value: `dagdeel 1: ${g2d1}\ndagdeel 2: ${g2d2}`, inline: true },
-                { name: 'Apple 3', value: `dagdeel 1: ${g3d1}\ndagdeel 2: ${g3d2}`, inline: true },
-                { name: 'Windows 1', value: `dagdeel 1: ${g4d1}\ndagdeel 2: ${g4d2}`, inline: true },
-                { name: 'Windows 2', value: `dagdeel 1: ${g5d1}\ndagdeel 2: ${g5d2}`, inline: true },
-                { name: 'Windows 3', value: `dagdeel 1: ${g6d1}\ndagdeel 2: ${g6d2}`, inline: true },
+                { name: 'Windows 1', value: `dagdeel 1: ${g1d1}\ndagdeel 2: ${g1d2}`, inline: true },
+                { name: 'Windows 2', value: `dagdeel 1: ${g2d1}\ndagdeel 2: ${g2d2}`, inline: true },
+                { name: 'Windows 3', value: `dagdeel 1: ${g3d1}\ndagdeel 2: ${g3d2}`, inline: true },
+                { name: 'Apple 1', value: `dagdeel 1: ${g4d1}\ndagdeel 2: ${g4d2}`, inline: true },
+                { name: 'Apple 2', value: `dagdeel 1: ${g5d1}\ndagdeel 2: ${g5d2}`, inline: true },
+                { name: 'Apple 3', value: `dagdeel 1: ${g6d1}\ndagdeel 2: ${g6d2}`, inline: true },
                 { name: 'VR 1', value: `dagdeel 1: ${g7d1}\ndagdeel 2: ${g7d2}\ndagdeel 3: ${g7d3}`, inline: true },
                 { name: 'VR 2', value: `dagdeel 1: ${g8d1}\ndagdeel 2: ${g8d2}\ndagdeel 3: ${g7d3}`, inline: true },
                 { name: 'VR 3', value: `dagdeel 1: ${g9d1}\ndagdeel 2: ${g9d2}\ndagdeel 3: ${g7d3}`, inline: true },

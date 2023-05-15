@@ -23,14 +23,14 @@ async function sync() {
 
     db.run(`CREATE TABLE IF NOT EXISTS reservaties (
             USRID TEXT PRIMARY KEY,
-            gear TEXT NOT NULL,
+            gear TEXT NOT NULL UNIQUE,
             week INTEGER,
             daypart TEXT,
             project TEXT
     )`)
 
     db.run(`CREATE TABLE IF NOT EXISTS omnummer (
-            gear TEXT,
+            gear INTEGER UNIQUE,
             name TEXT
     )`)
 }
