@@ -5,3 +5,4 @@ node_modules/*
 *.txt
 db/main.db
 todo.txt
+.clinic/*

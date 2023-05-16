@@ -14,7 +14,7 @@ module.exports = {
         const client = interaction.client
         const issuer = interaction.user
         const reason = interaction.options.getString('reden')
-        const channel = client.channels.cache.get('1093121317617811536');
+                const channel = client.channels.cache.get('969595410018607186');
 
         const embed = new EmbedBuilder()
             .setTitle('Waarschuwing')

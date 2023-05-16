@@ -31,7 +31,7 @@ module.exports = {
             interaction.guild.channels.create({
                 name: `ticket-${reden}`,
                 type: ChannelType.GuildText,
-                parent: '1106182761875787846',
+                parent: '1108142438712885270',
                 permissionOverwrites: [
                     {
                         id: interaction.guild.id,
