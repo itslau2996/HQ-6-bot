@@ -42,7 +42,11 @@ module.exports = {
                 )
             )
             .addStringOption((option) =>
-              option.setName("project").setDescription("Waar ga je aan werken")
+              option
+                .setName("project")
+                .setDescription("Waar ga je aan werken")
+                .setRequired(true)
+
             )
         )
         .addSubcommand((subcommand) =>
@@ -73,7 +77,11 @@ module.exports = {
                 )
             )
             .addStringOption((option) =>
-              option.setName("project").setDescription("Waar ga je aan werken")
+              option
+                .setName("project")
+                .setDescription("Waar ga je aan werken")
+                .setRequired(true)
+
             )
         )
         .addSubcommand((subcommand) =>
@@ -105,7 +113,11 @@ module.exports = {
                 )
             )
             .addStringOption((option) =>
-              option.setName("project").setDescription("Waar ga je aan werken")
+              option
+                .setName("project")
+                .setDescription("Waar ga je aan werken")
+                .setRequired(true)
+
             )
         )
         .addSubcommand((subcommand) =>
@@ -136,7 +148,11 @@ module.exports = {
                 )
             )
             .addStringOption((option) =>
-              option.setName("project").setDescription("Waar ga je aan werken")
+              option
+                .setName("project")
+                .setDescription("Waar ga je aan werken")
+                .setRequired(true)
+
             )
         )
     )
@@ -172,7 +188,11 @@ module.exports = {
                 )
             )
             .addStringOption((option) =>
-              option.setName("project").setDescription("Waar ga je aan werken")
+              option
+                .setName("project")
+                .setDescription("Waar ga je aan werken")
+                .setRequired(true)
+
             )
         )
         .addSubcommand((subcommand) =>
@@ -203,9 +223,13 @@ module.exports = {
                 )
             )
             .addStringOption((option) =>
-              option.setName("project").setDescription("Waar ga je aan werken")
+              option
+                .setName("project")
+                .setDescription("Waar ga je aan werken")
+                .setRequired(true))
+
             )
-        )
+        
         .addSubcommand((subcommand) =>
           subcommand
             .setName("vr")
@@ -235,7 +259,10 @@ module.exports = {
                 )
             )
             .addStringOption((option) =>
-              option.setName("project").setDescription("Waar ga je aan werken")
+              option.setName("project")
+                .setDescription("Waar ga je aan werken")
+                .setRequired(true)
+
             )
         )
         .addSubcommand((subcommand) =>
@@ -266,7 +293,11 @@ module.exports = {
                 )
             )
             .addStringOption((option) =>
-              option.setName("project").setDescription("Waar ga je aan werken")
+              option
+                .setName("project")
+                .setDescription("Waar ga je aan werken")
+                .setRequired(true)
+
             )
         )
     )

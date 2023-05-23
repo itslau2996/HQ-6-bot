@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const sync = require('./syncs/tables')
+const dsync = require('./syncs/discordsync')
 const { config } = require('dotenv')
 config()
 
