@@ -1,6 +1,8 @@
 const { SlashCommandBuilder, EmbedBuilder, Embed, PermissionFlagsBits } = require('discord.js');
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('./db/main.db')
+const { logChannel } = require('./../../config.json')
+const fucs = require('./../../functions')
 
 
 module.exports = {
@@ -16,32 +18,35 @@ module.exports = {
         const targetu = interaction.options.getUser('target')
         const client = interaction.client
         const issuer = interaction.user
+        const accid = await fucs.getAccId(targetu.id)
+
         const reason = interaction.options.getString('reden')
-        const channel = client.channels.cache.get('969595410018607186');
+        const channel = client.channels.cache.get(logChannel);
+
         const time = interaction.options.getString('tijd');
         const toMilliseconds = (hrs,min,sec) => (hrs*60*60+min*60+sec)*1000;
         const mutetime = toMilliseconds(0,time,0)
         const embed = new EmbedBuilder()
-            .setTitle('Waarschuwing')
+            .setTitle('Mute')
             .setColor('Red')
             .setAuthor({ name: `${target.user.tag}`, iconURL: target.displayAvatarURL({ dynamic: true }) })
             .setDescription(`Je hebt ${target.user.tag} gemute vanwege: \n ${reason} voor ${time} minuten`)
 
         const logembed = new EmbedBuilder()
-            .setTitle('Waarschuwing')
+            .setTitle('Mute')
             .setColor('Red')
             .setAuthor({ name: `${target.user.tag}`, iconURL: target.displayAvatarURL({ dynamic: true }) })
             .setDescription(`${issuer.tag} heeft ${target.user.tag} gemute vanwege: \n ${reason} voor ${time} minuten`)
 
         async function warn(issuer, reason, mutetime, mintijd, target, embed, channel, logembed) {
             return new Promise((resolve, reject) => {
-                db.run(`INSERT INTO warns (USRID, reason, MOD) values (?, ?, ?)`, [target.id, `mute voor ${mintijd}: ${reason}`, issuer.id], function (err) {
+                db.run(`INSERT INTO warns (accId, reason, MOD) values (?, ?, ?)`, [accid, `mute voor ${mintijd}: ${reason}`, issuer.id], function (err) {
                     if (err) {
                         interaction.reply({ content: err.message, ephemeral: true })
                     } else {
                         target.timeout(mutetime)
                         interaction.reply({ content: `<@${target.id}>`, embeds: [embed], ephemeral: true })
-                        db.run(`UPDATE strafblad SET MUTECOUNT = MUTECOUNT + 1 where USRID = ${target.id}`)
+                        db.run(`UPDATE users SET muteCount = muteCount + 1 where accId = ${accid}`)
                         channel.send({ embeds: [logembed] })
                         client.users.send(target.id, `Je bent gemute: **${reason}** voor ${mintijd} minuten`)
                     }

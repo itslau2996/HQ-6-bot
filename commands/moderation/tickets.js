@@ -1,6 +1,5 @@
 const { ButtonBuilder, ButtonStyle, SlashCommandBuilder, ChannelType, PermissionsBitField, EmbedBuilder, ActionRowBuilder } = require('discord.js');
-const sqlite3 = require('sqlite3').verbose()
-const db = new sqlite3.Database('./db/main.db')
+
 
 module.exports = {
     data: new SlashCommandBuilder()

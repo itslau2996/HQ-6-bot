@@ -1,6 +1,8 @@
 const { SlashCommandBuilder, EmbedBuilder, Embed, PermissionFlagsBits } = require('discord.js');
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('./db/main.db')
+const { logChannel } = require('./../../config.json')
+const fucs = require('./../../functions')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -14,9 +16,11 @@ module.exports = {
         const client = interaction.client
         const issuer = interaction.user
         const reason = interaction.options.getString('reden')
-                const channel = client.channels.cache.get('969595410018607186');
+        const channel = client.channels.cache.get(logChannel);
+        const accid = await fucs.getAccId(target.id)
+        
 
-        const embed = new EmbedBuilder()
+        const responseEmbed = new EmbedBuilder()
             .setTitle('Waarschuwing')
             .setColor('Red')
             .setAuthor({ name: `${target.tag}`, iconURL: target.displayAvatarURL({ dynamic: true }) })
@@ -30,12 +34,12 @@ module.exports = {
 
         async function warn(issuer, reason, target, embed, channel, logembed) {
             return new Promise((resolve, reject) => {
-                db.run(`INSERT INTO warns (USRID, reason, MOD) values (?, ?, ?)`, [target.id, reason, issuer.id], function (err) {
+                db.run(`INSERT INTO warns (accId, reason, MOD) values (?, ?, ?)`, [accid, reason, issuer.id], function (err) {
                     if (err) {
                         interaction.reply({ content: err.message, ephemeral: true })
                     } else {
-                        interaction.reply({ content: `<@${target.id}>`, embeds: [embed], ephemeral: true})
-                        db.run(`UPDATE strafblad SET WARNCOUNT = WARNCOUNT + 1 where USRID = ${target.id}`)
+                        interaction.reply({ content: `<@${target.id}>`, embeds: [responseEmbed], ephemeral: true })
+                        db.run(`UPDATE users SET warnCount = warnCount + 1 where accId = ${accid}`)
                         channel.send({ embeds: [logembed] })
                         client.users.send(target.id, `Je bent gewaarschuwd: **${reason}**`)
                     }
@@ -43,7 +47,7 @@ module.exports = {
 
             })
         }
-        warn(issuer, reason, target, embed, channel, logembed)
+        warn(issuer, reason, target, responseEmbed, channel, logembed)
 
     }
 }
