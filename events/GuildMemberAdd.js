@@ -6,7 +6,11 @@ const {welcomeChannel} = require('./../config.json')
 module.exports = {
 	name: Events.GuildMemberAdd,
 	async execute(member, client) {
-		db.run(`INSERT INTO users(discordId) VALUES(?)`, [member.id])
+		db.run(`INSERT INTO users(discordId) VALUES(?)`, [member.id], function(err) {
+			if (err) {
+				console.log(err)
+			}
+		})
 		const channel = client.channels.cache.get(welcomeChannel);
 		channel.send(`Jo <@${member.id}>, Welkom bij **HEADQUARTER-6**!`)
 	},

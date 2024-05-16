@@ -43,21 +43,24 @@ module.exports = {
 
         if (sub === 'display') {
             const sql = `SELECT * FROM reservaties WHERE accId = ?`
-            db.get(sql, [accid], async (err, row) => {
-                if (typeof row === 'undefined') {
-                    interaction.reply({ content: 'Nog niet gereserveerd', ephemeral: true })
+            const embed = new EmbedBuilder()
+                .setTitle('Reserveringen')
+                .setColor('DarkNavy')
+                .setAuthor({ name: `${target.tag}`, iconURL: target.displayAvatarURL({ dynamic: true }) })
+            db.all(sql, [accid], async (err, rows) => {
+                if (typeof rows === 'undefined'){
+                    interaction.reply({ content: `<@${target.id}> heeft deze week niet gereserveerd`, ephemeral: true})
                 } else {
-                    const gear = await fucs.gearcheck(row.gear)
-                    let dp = row.daypart
-                    dp = dp.match(/\d+/);
 
-                    const embed = new EmbedBuilder()
-                        .setTitle('Display')
-                        .setColor('Orange')
-                        .addFields(
-                            { name: 'Huidige reservering', value: `Deze week heeft **${target.username}** gereserveerd voor dagdeel ${dp} op ${await fucs.gearcheck(row.gear)}\nProject: ${row.project}`, inline: false }
-                        )
-                    await interaction.reply({ embeds: [embed] })
+                    for (let i = 0; i < rows.length; i++) {
+                        embed.spliceFields(0, 0, { name: `Device: ${await fucs.gearcheck(rows[i].gear)}`, value: `dagdeel: ${rows[i].daypart}\nProject: ${rows[i].project}\nreservatie id: ${rows[i].ResID}`, inline: false })
+                    }
+                    await interaction.reply({ embeds: [embed], ephemeral: true })
+
+                     
+                    
+                    
+                    
                 }
             })
         } else if (sub === 'delete') {

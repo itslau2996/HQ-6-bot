@@ -1,7 +1,8 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('./db/main.db')
-const fucs = require('./../../functions')
+const fucs = require('./../../functions');
+const { cat } = require('shelljs');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,14 +12,14 @@ module.exports = {
             subcommand
                 .setName('registratie')
                 .setDescription('Met dit command kan je een account aanmaken, gebruik dit voor ')
-                .addStringOption(option => option.setName('naam').setDescription('Onder welke naam je wilt gaan.').setRequired(true))
+                .addStringOption(option => option.setName('naam').setDescription('De naam waarmee je in HQ-6 wil aangesproken worden').setRequired(true))
                 .addNumberOption(option => option.setName('leeftijd').setDescription('Voeg hier je leeftijd toe').setRequired(true))
                 )
         .addSubcommand(subcommand =>
             subcommand
                 .setName('beheren')
                 .setDescription('Beheer je account hier')
-                .addStringOption(option => option.setName('naam').setDescription('Onder welke naam je wilt gaan.').setRequired(true))
+                .addStringOption(option => option.setName('naam').setDescription('Pas de naam aan waarmee je wil aangesproken worden.').setRequired(true))
                 .addNumberOption(option => option.setName('leeftijd').setDescription('Voeg hier je leeftijd toe').setRequired(true))
         )
         .addSubcommand(subcommand =>
@@ -45,7 +46,7 @@ module.exports = {
 
         if(sub === 'registratie') {
             db.run('INSERT INTO accounts(accId, username, age) VALUES(?, ?, ?)', [accid, name, age], function (err) {
-                if(err){console.log(err)} else{
+                if(err.errno = 19){interaction.reply({ content: 'Je hebt al een account, als je dit niet hebt, run `/account verwijderen` eerst', ephemeral: true})} else{
                     const embed = new EmbedBuilder()
                         .setTitle('Registratie')
                         .setDescription('Je hebt nu een account aangemaakt')
@@ -54,15 +55,21 @@ module.exports = {
                         .addFields(
                             { name: 'Details', value: `Naam: ${name}\nAccount ID: ${accid}\nLeeftijd: ${age}`}
                         )
-                    interaction.reply({ embeds: [embed], ephemeral: true})
+                    try{
+                        member.setNickname(name, 'Aangepast, Gedaan door registratie.')
+                        interaction.reply({ embeds: [embed], ephemeral: true})
+                    } catch(err) {
+                        console.error(err)
+                        interaction.reply({ ephemeral: true, content: "Er is iets fout gegaan, DM <@642288908381585408>"})
+                    }
 
                 }
             })
         } else if (sub === 'beheren') {
-            console.log(name, age, accid)
              db.run('UPDATE accounts SET username = ?, age = ? WHERE accId = ?', [name, age, accid], function (err) {
                 if(err){console.log(err.message)} else{
-                    interaction.reply('Done')
+                    interaction.reply({content: "Je profiel is aangepast", ephemeral: true})
+                    member.setNickname(name, 'Aangepast, Gedaan door registratie.')
                 }
             })
         } else if (sub === 'verwijderen' && confirmation === 'true') {
