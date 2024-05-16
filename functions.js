@@ -59,6 +59,25 @@ module.exports = {
         })
     },
     log: async function(accid, reason, issuer) {
+        //TODO write this
+    },
+    bancheck: async function(id){
+        return new Promise((resolve, reject) => {
+            var value = null
+            db.get(`SELECT gear FROM reservaties WHERE accId = ?`, [id], async (err, row) => {
+                if(err){throw err;}
+                if (typeof row === 'undefined') {
+                    value = false
+                } else {
+                    if (row.gear === 13) {
+                        value = true
+                    } else {
+                        value = false
+                    }
+                }
+                resolve(value)
+            })
 
+        })
     }
 }

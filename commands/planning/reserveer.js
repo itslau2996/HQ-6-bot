@@ -128,9 +128,9 @@ module.exports = {
 								.setDescription("Wat je wilt reserveren")
 								.setRequired(true)
 								.addChoices(
-									{ name: "headphone", value: "10" },
-									{ name: "headphone", value: "11" },
-									{ name: "headphone", value: "12" }
+									{ name: "headphone 1", value: "10" },
+									{ name: "headphone 2", value: "11" },
+									{ name: "headphone 3", value: "12" }
 								)
 						)
 						.addStringOption((option) =>
@@ -157,16 +157,18 @@ module.exports = {
 			subcommand.setName("verwijder").setDescription("Cancel al je reservering")
 		),
 	async execute(interaction) {
+		//get command vars
 		let group = interaction.options.getSubcommandGroup();
 		let subcommand = interaction.options.getSubcommand();
 		let choice = interaction.options.getString("gear");
 		let daypart = interaction.options.getString("dagdeel");
 		let project = interaction.options.getString("project");
+		//some personal vars
 		let accid = await fucs.getAccId(interaction.user.id);
 		let count = await fucs.getCount(accid)
 		let status = await fucs.available(choice, daypart, db)
-
-		await interaction.deferReply();
+		let banned = await fucs.bancheck(accid)
+		await interaction.deferReply({ ephemeral: true });
 
 		async function embed(choice, dp, resid) {
 			return new Promise(async (resolve, reject) => {
@@ -175,10 +177,10 @@ module.exports = {
 				const embed = new EmbedBuilder()
 					.setTitle(`Reservering #${resid}`)
 					.setDescription("Reservering voor: **Open voor Jongeren** event")
+					.setColor("Green")
 					.addFields(
 						{ name: "**Details:**", value: `Gear: ${gear}\nDagdeel: ${daypart}`, inline: false }
-					)
-					.setColor("Green");
+					);
 
 				resolve(embed);
 			});
@@ -194,32 +196,35 @@ module.exports = {
 					}
 				})
 			}
-			if (count < 2 && status === 'open') {
+			if (count < 2 && status === 'open' && banned == false) {
 				await reserveer(accid, choice, project, daypart);
 			} else if (count >= 2) {
-				interaction.editReply({ content: 'Je mag maar 2x per week reserveren'})
+				interaction.editReply({ content: 'Je mag maar 2x per week reserveren' })
 			} else if (status === 'closed') {
-				interaction.editReply({ content: 'De gekozen gear is niet beschikbaar op het gekozen dagdeel'})
+				interaction.editReply({ content: 'De gekozen gear is niet beschikbaar op het gekozen dagdeel' })
+			} else if (banned == true) {
+				interaction.editReply({content: 'Je bent deze week gebanned.'})
 			}
-		} else if (subcommand === "verwijder") {
-			let user = interaction.user;
-			let sql = `DELETE FROM reservaties WHERE accId = ?`;
-			db.run(sql, [accid], async function (err) {
-				if (err) {
-					await interaction.editReply({ content: `Er is wat fout gegaan`, ephemeral: true });
-					return console.log(err.message);
-				}
-				const embed = new EmbedBuilder()
-					.setAuthor({
-						name: `${user.tag}`,
-						iconURL: user.displayAvatarURL({ dynamic: true }),
-					})
-					.setTitle("Reservering verwijderd!")
-					.setColor("Red")
-					.setDescription("Je Reservering is nu verwijderd.");
-				await interaction.editReply({ embeds: [embed], ephemeral: true });
-			});
+	} else if(subcommand === "verwijder") {
+	let user = interaction.user;
+	let sql = `DELETE FROM reservaties WHERE accId = ?`;
+	db.run(sql, [accid], async function (err) {
+		if (err) {
+			await interaction.editReply({ content: `Er is wat fout gegaan`, ephemeral: true });
+			return console.log(err.message);
 		}
+		const embed = new EmbedBuilder()
+			.setAuthor({
+				name: `${user.tag}`,
+				iconURL: user.displayAvatarURL({ dynamic: true }),
+			})
+			.setTitle("Reservering verwijderd!")
+			.setColor("Red")
+			.setDescription("Je Reservering is nu verwijderd.");
+		await interaction.editReply({ embeds: [embed], ephemeral: true });
+	});
+}
 
+		
 	},
 };

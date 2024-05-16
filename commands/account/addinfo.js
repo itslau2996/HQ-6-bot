@@ -37,7 +37,6 @@ module.exports = {
             )
         .setDescription('Beheer je profiel!'),
     async execute(interaction) {
-        // TODO embeds
         const accid = await fucs.getAccId(interaction.user.id)
         const subcommandgroup = interaction.options.getSubcommandGroup()
         const subcommand = interaction.options.getSubcommand()
@@ -82,12 +81,12 @@ module.exports = {
                     interaction.reply({ embeds: [embed] })
                 })
 
-            } else if (subcommand === 'film') {
+            } else if (subcommand === 'serie') {
                 let title = interaction.options.getString('titel')
                 let provider = interaction.options.getString('waar')
                 let embed = new EmbedBuilder()
                     .setTitle('Profielupdate')
-                    .setDescription('Je favoriete film is toegevoegd')
+                    .setDescription('Je favoriete serie is toegevoegd')
                     .addFields(
                         { name: '**Details:**', value: `Serie: ${title}\nProvider: ${provider}`, inline: false }
                     )
