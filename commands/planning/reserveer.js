@@ -83,41 +83,41 @@ module.exports = {
 								.setRequired(true)
 						)
 				)
-				.addSubcommand((subcommand) =>
-					subcommand
-						.setName("vr")
-						.setDescription("Reserveer een VR-headset")
-						.addStringOption((option) =>
-							option
-								.setName("gear")
-								.setDescription("VR oculus Quest 1, 2 of 3")
-								.setRequired(true)
-								.addChoices(
-									{ name: "1", value: "7" },
-									{ name: "2", value: "8" },
-									{ name: "3", value: "9" }
-								)
-						)
-						.addStringOption((option) =>
-							option
-								.setName("dagdeel")
-								.setDescription(
-									"Welk dagdeel je kan, hoelaat de dagdelen zijn kan je zien in het event"
-								)
-								.setRequired(true)
-								.addChoices(
-									{ name: "1", value: "d1" },
-									{ name: "2", value: "d2" },
-									{ name: "3", value: "d3" }
-								)
-						)
-						.addStringOption((option) =>
-							option
-								.setName("project")
-								.setDescription("Waar ga je aan werken")
-								.setRequired(true)
-						)
-				)
+				// .addSubcommand((subcommand) =>
+				// 	subcommand
+				// 		.setName("vr")
+				// 		.setDescription("Reserveer een VR-headset")
+				// 		.addStringOption((option) =>
+				// 			option
+				// 				.setName("gear")
+				// 				.setDescription("VR oculus Quest 1, 2 of 3")
+				// 				.setRequired(true)
+				// 				.addChoices(
+				// 					{ name: "1", value: "7" },
+				// 					{ name: "2", value: "8" },
+				// 					{ name: "3", value: "9" }
+				// 				)
+				// 		)
+				// 		.addStringOption((option) =>
+				// 			option
+				// 				.setName("dagdeel")
+				// 				.setDescription(
+				// 					"Welk dagdeel je kan, hoelaat de dagdelen zijn kan je zien in het event"
+				// 				)
+				// 				.setRequired(true)
+				// 				.addChoices(
+				// 					{ name: "1", value: "d1" },
+				// 					{ name: "2", value: "d2" },
+				// 					{ name: "3", value: "d3" }
+				// 				)
+				// 		)
+				// 		.addStringOption((option) =>
+				// 			option
+				// 				.setName("project")
+				// 				.setDescription("Waar ga je aan werken")
+				// 				.setRequired(true)
+				// 		)
+				// )
 				.addSubcommand((subcommand) =>
 					subcommand
 						.setName("audio")
