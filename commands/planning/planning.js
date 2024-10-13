@@ -34,12 +34,12 @@ module.exports = {
                 { name: 'Apple 1', value: `dagdeel 1: ${await getID('4', 'd1', db)}\ndagdeel 2: ${await getID('4', 'd2', db)}`, inline: true },
                 { name: 'Apple 2', value: `dagdeel 1: ${await getID('5', 'd1', db)}\ndagdeel 2: ${await getID('5', 'd2', db)}`, inline: true },
                 { name: 'Apple 3', value: `dagdeel 1: ${await getID('6', 'd1', db)}\ndagdeel 2: ${await getID('6', 'd2', db)}`, inline: true },
-                { name: 'VR 1', value: `dagdeel 1: ${await getID('7', 'd1', db)}\ndagdeel 2: ${await getID('7', 'd2', db)}\ndagdeel 3: ${await getID('7', 'd3', db)}`, inline: true },
-                { name: 'VR 2', value: `dagdeel 1: ${await getID('8', 'd1', db)}\ndagdeel 2: ${await getID('8', 'd2', db)}\ndagdeel 3: ${await getID('8', 'd3', db)}`, inline: true },
-                { name: 'VR 3', value: `dagdeel 1: ${await getID('9', 'd1', db)}\ndagdeel 2: ${await getID('9', 'd2', db)}\ndagdeel 3: ${await getID('9', 'd3', db)}`, inline: true },
-                // { name: 'Headphones 1', value: `dagdeel 1: ${await getID('10', 'd1', db)}\ndagdeel 2: ${await getID('10', 'd2', db)}`, inline: true },
-                // { name: 'Headphones 2', value: `dagdeel 1: ${await getID('11', 'd1', db)}\ndagdeel 2: ${await getID('11', 'd2', db)}`, inline: true },
-                // { name: 'Headphones 3', value: `dagdeel 1: ${await getID('12', 'd1', db)}\ndagdeel 2: ${await getID('12', 'd2', db)}`, inline: true },
+                // { name: 'VR 1', value: `dagdeel 1: ${await getID('7', 'd1', db)}\ndagdeel 2: ${await getID('7', 'd2', db)}\ndagdeel 3: ${await getID('7', 'd3', db)}`, inline: true },
+                // { name: 'VR 2', value: `dagdeel 1: ${await getID('8', 'd1', db)}\ndagdeel 2: ${await getID('8', 'd2', db)}\ndagdeel 3: ${await getID('8', 'd3', db)}`, inline: true },
+                // { name: 'VR 3', value: `dagdeel 1: ${await getID('9', 'd1', db)}\ndagdeel 2: ${await getID('9', 'd2', db)}\ndagdeel 3: ${await getID('9', 'd3', db)}`, inline: true },
+                { name: 'Headphones 1', value: `dagdeel 1: ${await getID('10', 'd1', db)}\ndagdeel 2: ${await getID('10', 'd2', db)}`, inline: true },
+                { name: 'Headphones 2', value: `dagdeel 1: ${await getID('11', 'd1', db)}\ndagdeel 2: ${await getID('11', 'd2', db)}`, inline: true },
+                { name: 'Headphones 3', value: `dagdeel 1: ${await getID('12', 'd1', db)}\ndagdeel 2: ${await getID('12', 'd2', db)}`, inline: true },
             )
             .setColor('#33b6e9')
         interaction.reply({ embeds: [embed] })
