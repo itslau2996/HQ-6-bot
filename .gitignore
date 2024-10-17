@@ -1,7 +1,6 @@
 node_modules/*
 .env
 *.txt
-*.db
 config.json
 /configs
 *.zip

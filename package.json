@@ -1,25 +1,23 @@
 {
-  "name": "sqlbasediscord",
+  "dependencies": {
+    "discord-api-types": "^0.37.102",
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.5",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "eslint": "^9.12.0"
+  },
+  "name": "hq-6-bot",
   "version": "1.0.0",
-  "description": "",
+  "description": "The Typescript rewritten version",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "node": "node ./syncs/discordsync.js  && nodemon index.js",
-    "sync": "node ./syncs/discordsync.js"
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node build/main.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "cron": "^2.3.0",
-    "dayjs": "^1.11.7",
-    "discord.js": "^14.13.0",
-    "dotenv": "^16.0.3",
-    "moment": "^2.29.4",
-    "node-cron": "^3.0.2",
-    "nodemon": "^3.0.2",
-    "shelljs": "^0.8.5",
-    "sqlite3": "^5.1.6"
-  }
+  "author": "Laurens || @itslauh",
+  "license": "ISC"
 }
