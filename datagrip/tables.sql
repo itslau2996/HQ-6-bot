@@ -1,32 +1,81 @@
-create table "users"
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+CREATE TABLE "users"
 (
-    id int primary key,
-    discord_id int unique,
-    username varchar(10) not null,
-    created_at timestamp not null
+    userId     int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    discordId  varchar(15) UNIQUE,
+    username   varchar(10) NOT NULL,
+    created_at timestamp   NOT NULL
 );
-create table "counts" (
-    id int primary key,
-    reservationCount int not null default(0),
-    projectCount int not null default(0),
-    winCount int not null default(0)
-);
-create table "reservations"
+CREATE TABLE "counts"
 (
-    id int primary key,
-    deviceId int not null,
-    project text,
-    timeslot int not null
+    CountId          int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    reservationCount int NOT NULL DEFAULT (0),
+    projectCount     int NOT NULL DEFAULT (0),
+    winCount         int NOT NULL DEFAULT (0)
 );
-create table "projects" (
-    id int primary key,
-    name varchar(30) not null,
-    catagory varchar(10) not null,
+CREATE TABLE "devices"
+(
+    deviceId   int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    deviceName varchar(15)
+);
+CREATE TABLE "projects"
+(
+    projectId   int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name        varchar(30) NOT NULL,
+    category    varchar(10) NOT NULL,
     description text,
-    date timestamp not null ,
-    endDate timestamp
+    date        timestamp   NOT NULL,
+    endDate     timestamp
 );
-create table "accounts" (
-    id     int primary key,
-    userId int
+CREATE TABLE "accounts"
+(
+    accountId   int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    birthday    timestamp,
+    created_at  timestamp NOT NULL,
+    specialties text[]
 );
+CREATE TABLE "reservations"
+(
+    reservationsId int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    userid         int NOT NULL,
+    deviceId       int NOT NULL,
+    project        text,
+    timeslot       int NOT NULL,
+    CONSTRAINT foreign_keys
+        FOREIGN KEY (userid)
+            REFERENCES users (userId),
+    FOREIGN KEY (deviceId)
+        REFERENCES devices (deviceId)
+        ON DELETE CASCADE
+);
+CREATE TABLE "accounts-join"
+(
+    id        int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    userId    int NOT NULL,
+    countId   int NOT NULL,
+    accountId int NOT NULL,
+    CONSTRAINT foreign_keys
+        FOREIGN KEY (accountId)
+            REFERENCES accounts (accountId),
+    FOREIGN KEY (countId)
+        REFERENCES counts (CountId),
+    FOREIGN KEY (userId)
+        REFERENCES users (userId)
+        ON DELETE CASCADE
+);
+CREATE TABLE "projectUserHistory"
+(
+    projectUserHistoryId int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    projectId            int         NOT NULL,
+    userId               int         NOT NULL,
+    role                 varchar(20) NOT NULL,
+    roleDescription      text        NOT NULL,
+    link                 text,
+    CONSTRAINT foreign_key
+        FOREIGN KEY (projectId)
+            REFERENCES projects (projectId),
+    FOREIGN KEY (userId)
+        REFERENCES users (userId)
+        ON DELETE CASCADE
+)
