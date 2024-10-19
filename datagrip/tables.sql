@@ -14,10 +14,41 @@ CREATE TABLE "counts"
     projectCount     int NOT NULL DEFAULT (0),
     winCount         int NOT NULL DEFAULT (0)
 );
+CREATE TABLE "nodeScheduling"
+(
+    nodeId   int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    cronTime varchar(20) NOT NULL,
+    type     varchar(10) NOT NULL
+);
+CREATE TABLE "ResetTablesAt"
+(
+    tableResetId int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    title        varchar(10) NOT NULL,
+    description  text        NOT NULL,
+    nodeId       int         NOT NULL,
+    CONSTRAINT foreign_key
+        FOREIGN KEY (nodeId)
+            REFERENCES "nodeScheduling" (nodeId)
+
+);
+CREATE TABLE "notificationsScheduling"
+(
+    notificationId          int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    title                   varchar(10)  NOT NULL,
+    notificationTitle       varchar(256) NOT NULL,
+    notificationDescription varchar(4096),
+    notificationImage       text,
+    nodeId                  int          NOT NULL,
+    CONSTRAINT foreign_key
+        FOREIGN KEY (nodeId)
+            REFERENCES "nodeScheduling" (nodeId)
+
+);
+
 CREATE TABLE "devices"
 (
     deviceId   int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    deviceName varchar(15)
+    deviceName varchar(20)
 );
 CREATE TABLE "projects"
 (
