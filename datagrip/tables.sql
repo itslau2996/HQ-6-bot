@@ -69,18 +69,18 @@ CREATE TABLE "accounts"
 CREATE TABLE "reservations"
 (
     reservationsId int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    userid         int NOT NULL,
+    userId         int NOT NULL, 
     deviceId       int NOT NULL,
     project        text,
     timeslot       int NOT NULL,
     CONSTRAINT foreign_keys
-        FOREIGN KEY (userid)
+        FOREIGN KEY (userId)
             REFERENCES users (userId),
     FOREIGN KEY (deviceId)
         REFERENCES devices (deviceId)
         ON DELETE CASCADE
 );
-CREATE TABLE "accounts-join"
+CREATE TABLE "accountsJoin"
 (
     id        int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     userId    int NOT NULL,
